@@ -16,7 +16,8 @@
   ],
   "require": {
     "php": ">=7.0",
-    "alibabacloud/sdk": "~1.0"
+    "alibabacloud/sdk": "~1.0",
+    "topthink/think-helper": "^3.0.0"
   },
   "autoload": {
     "psr-4": {
