@@ -16,6 +16,7 @@ class AliyunVod
 
         AlibabaCloud::accessKeyClient($config['access_key'], $config['access_secret'])
             ->regionId($config['region_id'])
+            ->timeout($config['timeout'])
             ->name($this->client);
     }
 

@@ -19,6 +19,8 @@ return [
             'play_auth_info_timeout'   => env('VOD_PLAY_AUTH_INFO_TIMEOUT', 1800),
             // 视频标签
             'video_tags'               => '',
+            // 获取签名有效时间
+            'timeout'                  => '3600'
         ]
     ]
 ];
