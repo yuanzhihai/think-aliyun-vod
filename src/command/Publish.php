@@ -1,6 +1,6 @@
 <?php
 
-namespace yzh52521\Aliyun\command;
+namespace yzh52521\Aliyun\Vod\command;
 
 use think\console\Command;
 use think\console\Input;
