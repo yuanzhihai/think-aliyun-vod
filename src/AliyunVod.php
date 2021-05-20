@@ -3,10 +3,12 @@
 namespace yzh52521\Aliyun\Vod;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use think\helper\Arr;
 
 class AliyunVod
 {
     protected $config;
+    protected $client = 'vod';
 
     public function __construct($config)
     {
@@ -14,7 +16,7 @@ class AliyunVod
 
         AlibabaCloud::accessKeyClient($config['access_key'], $config['access_secret'])
             ->regionId($config['region_id'])
-            ->name('vod');
+            ->name($this->client);
     }
 
 
@@ -67,7 +69,7 @@ class AliyunVod
 
             $request->withPageSize($pageSize);
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -97,7 +99,7 @@ class AliyunVod
             $request->withDescription($description ?: $title);
             $request->withCoverURL($cover);
 
-            if ($tags = array_get($this->config, 'video_tags')) {
+            if ($tags = Arr::except($this->config, 'video_tags')) {
                 $request->withTags($tags);
             }
 
@@ -105,15 +107,15 @@ class AliyunVod
                 $request->withUserData(json_encode($userData));
             }
 
-            if ($cateId = array_get($this->config, 'upload_cate_id')) {
+            if ($cateId = Arr::except($this->config, 'upload_cate_id')) {
                 $request->withCateId($cateId);
             }
 
-            if ($templateGroupId = array_get($this->config, 'upload_template_group_id')) {
+            if ($templateGroupId = Arr::except($this->config, 'upload_template_group_id')) {
                 $request->withCateId($templateGroupId);
             }
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -132,7 +134,7 @@ class AliyunVod
 
             $request->withVideoIds(implode(',', $VideoIds));
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -153,7 +155,7 @@ class AliyunVod
             $request = AlibabaCloud::vod()->v20170321()->uploadMediaByURL();
             $request->withUploadURLs($uploadURLs);
             $request->withUploadMetadatas(json_encode($uploadMetadatas));
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -172,7 +174,7 @@ class AliyunVod
 
             $request->withVideoId($videoId);
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -192,7 +194,7 @@ class AliyunVod
         try {
             $request = AlibabaCloud::vod()->v20170321()->getVideoInfo();
             $request->withVideoId($videoId);
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -236,7 +238,7 @@ class AliyunVod
                 $request->withTags($tags);
             }
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -269,7 +271,7 @@ class AliyunVod
                 $request->withDefinition($definition);
             }
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -292,7 +294,7 @@ class AliyunVod
 
             $request->withAuthInfoTimeout($timeout);
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
@@ -316,7 +318,7 @@ class AliyunVod
 
             $request->withAuthInfoTimeout($timeout);
 
-            return $request->client('vod')->request();
+            return $request->client($this->client)->request();
         } catch (\Exception $e) {
             return ['errorMessage' => $e->getMessage()];
         }
